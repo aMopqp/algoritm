@@ -1,0 +1,38 @@
+#include <stdio.h>
+#include <math.h>
+
+
+double IndexMass(int m , int h)   //Задание 1
+{
+   return m/(h*h);
+}
+
+
+struct root
+{
+     int i;
+     double x1;
+     double x2;
+}
+
+root BinaryEquation (int a, int b, int c)  //Задание 2
+{
+     struct root f;
+     double D=b*b-4*a*c;
+     if (D > 0)
+     {
+          f.i=2;
+          f.x1=((0-b)+sqrt(D))/2*a;
+          f.x2=((0-b)-sqrt(D))/2*a;
+     }
+     if (D==0)
+     {
+          f.i=1;
+          f.x1=(0-b)/2*a;
+     }
+     if (D<0)
+     {
+          f.i=0;
+     }
+}
+
