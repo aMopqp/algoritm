@@ -2,12 +2,12 @@
 #include <math.h>
 
 
-double IndexMass(int m, int h)   //Задание 1
+double IndexMass(int m, int h)   //workout 1
 {
 	return m / (h*h);
 }
 
-void average()  // Задание с лекции
+void average()  // workout on lecture
 {
 	printf("\n write numbers. Exit =-1 \n");
 	int counter = -1;
@@ -22,16 +22,16 @@ void average()  // Задание с лекции
 	getchar();
 }
 
-void Choose(int old) //Задание 3 
+void Choose(int old) //workout  3 
 {
 	if ((old % 10 == 1) && (old != 11))
-		printf("%d \nгод", old);
+		printf("%d \ngod", old);
 	else if ((old % 10 > 1) && (old % 10 < 5) && (old / 10 != 1))
-		printf("%d \nгода", old);
-	else printf("%d \nлет", old);
+		printf("%d \ngodaа", old);
+	else printf("%d \nlet", old);
 }
 
-void BinaryEquation(int a, int b, int c)  //Задание 2
+void BinaryEquation(int a, int b, int c)  //workout  2
 {
 	double D = b*b - 4 * a*c;
 	if (D > 0) {
@@ -44,16 +44,16 @@ void BinaryEquation(int a, int b, int c)  //Задание 2
 	}
 	if (D<0)
 	{
-		printf("\nКорней нет");
+		printf("\nno root");
 	}
 }
 
-void Chess(int x1, int x2, int y1, int y2)    //Задание 4
+void Chess(int x1, int x2, int y1, int y2)    //workout  4
 {
 	printf((x1 + x2 + y1 + y2) % 2 != 0 ? "\n equal" : "\n no equal");
 }
 
-void autoMorf10k()               //Задание 5
+void autoMorf10k()               //workout  5
 {
 	int i = 1;
 	while (i<100)
