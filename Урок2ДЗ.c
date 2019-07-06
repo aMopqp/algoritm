@@ -8,9 +8,9 @@ void DecimalInBinary(int *a) // Workout1 Translation from decimal in binary
 {
 	int b = *a % 2;
 	*a /= 2;
-	if (*a> 1) DecimalInBinary(a);		
+	if (*a> 1) DecimalInBinary(a);
 	*a = *a * 10 + b;
-	
+
 }
 
 
@@ -18,7 +18,7 @@ void DecimalInBinary(int *a) // Workout1 Translation from decimal in binary
 void RaiseAPower(int *a, int b)  // Workout2 Numerialc value that you want to raise to a power.
 {
 	int c = *a;
-	if (b-1 > 1) RaiseAPower(a, b-1);
+	if (b - 1 > 1) RaiseAPower(a, b - 1);
 	*a *= c;
 
 }
@@ -26,7 +26,7 @@ void RaiseAPower(int *a, int b)  // Workout2 Numerialc value that you want to ra
 void FastRaiseAPower(int *a, int b)
 {
 	int c = 1;
-	if (b%2 && b>1)
+	if (b % 2 && b>1)
 	{
 		c = *a;
 		FastRaiseAPower(a, b - 1);
@@ -39,73 +39,97 @@ void FastRaiseAPower(int *a, int b)
 	*a *= c;
 }
 
- int G(int start, int end, int *i, int *gi , int *gj);   //This
-int F(int start, int end, int *i, int *gi, int *gj);   //Is
+int G(int start, int end, int *i, char *oper, int *IndOper);   //This
+int F(int start, int end, int *i, char *oper, int *IndOper);   //Is
 int mult(int start, int end, int *i);		 //My
-int NumberWay(int start , int end)   // workout 3
+int NumberWay(int start, int end)   // workout 3
 {
 	int i = 0;
-	int gi = 1;
-	int gj = 1;
+	char oper[100] = { 0 };
+	int IndOper = 0;
 	//mult(start, end, &i);
-	G(start, end, &i);
-	F(start, end, &i);
+	G(start, end, &i, oper, &IndOper);
+	F(start, end, &i, oper, &IndOper);
 	return i;
 }
 
-int G(int start, int end , int *i)
+int G(int start, int end, int *i, char *oper, int *IndOper)
 {
-	int j=0;
-	start++;	
+	int j = 0;
+	start++;
+	oper[*IndOper] = 0;
+	(*IndOper)++;
 	if (start < end)
-	{	
-		printf("+1 ");
-		if (G(start, end, i))
+	{
+		
+		if (G(start, end, i, oper, IndOper))
 		{
-			//printf("+1 ");
+			(*IndOper)--;
 			j = 1;
 		}
-		if (F(start, end, i))
+		if (F(start, end, i, oper, IndOper))
 		{
-			//printf("*2 ");
+			(*IndOper)--;
 			j = 1;
 		}
 		return j;
 	}
-	else if (start > end) return 0;
-	else
-	{ 
-		*i += 1;
-		printf("\nWay n. '%d' +1", *i);
-		return 1;
+	else if (start > end)
+	{
+		(*IndOper)--;
+		return 0;
 	}
-	
-}
-
-int F(int start, int end , int *i)
-{
-	int j=0;
-	start = start << 1;
-	if (start < end)
-	{	
-		printf("*2 ");
-		if (G(start, end, i))
-		{
-			//printf("+1 ");
-			j = 1;
-		}
-		if (F(start, end, i))
-		{
-			//printf("*2 ");
-			j = 1;
-		}
-		return j;
-	}
-	else if (start > end) return 0;
 	else
 	{
 		*i += 1;
-		printf("\nWay n. '%d' *2", *i);
+		printf("\nWay n. '%d' ", *i);
+		for (int k = 0; k < *IndOper; k++)
+		{
+			if (oper[k]) printf(" *2");
+			else printf(" +1");
+		}
+		//(*IndOper)--;
+		return 1;
+	}
+
+}
+
+int F(int start, int end, int *i, char *oper, int *IndOper)
+{
+	int j = 0;
+	start = start << 1;
+	oper[*IndOper] = 1;
+	(*IndOper)++;
+	if (start < end)
+	{
+		
+		if (G(start, end, i, oper, IndOper))
+		{
+			(*IndOper)--;
+			j = 1;
+		}
+		if (F(start, end, i, oper, IndOper))
+		{
+			(*IndOper)--;
+			j = 1;
+		}
+		return j;
+	}
+	else if (start > end)
+	{
+		(*IndOper)--;
+		return 0;
+	}
+	else
+	{
+		*i += 1;
+		printf("\nWay n. '%d' ", *i);
+		for (int k = 0; k < *IndOper; k++)
+		{
+			if (oper[k]) printf(" *2");
+			else printf(" +1");
+		}
+		//(*IndOper)--;
 		return 1;
 	}
 }
@@ -138,9 +162,9 @@ int F(int start, int end , int *i)
 
 int main(int argc, char *argv[])
 {
-	int dec = 38;                
-	DecimalInBinary(&dec);        
-	printf("%d\n", dec);   
+	int dec = 38;
+	DecimalInBinary(&dec);
+	printf("%d\n", dec);
 
 	int Num = 3;
 	RaiseAPower(&Num, 4);
@@ -151,5 +175,5 @@ int main(int argc, char *argv[])
 
 	printf("\nAll way = %d", NumberWay(3, 20));
 
-	return 0;                      
+	return 0;
 }
